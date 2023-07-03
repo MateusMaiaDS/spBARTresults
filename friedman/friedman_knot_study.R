@@ -6,7 +6,7 @@ library(dbarts)
 library(purrr)
 # Setting a seed
 set.seed(42)
-rm(list=ls())
+# rm(list=ls())
 # Generating the list of simulated data.
 n_rep_ <- 10
 n_ <- 100
@@ -97,4 +97,14 @@ for(i in 1:10){
         cat("Running repetition number: ", i , "\n")
 
 }
+
+
+# Importing tidyverse to plots
+library(tidyverse)
+all_metrics <- all_metrics %>% mutate(nIknots = as.factor(nIknots))
+ggplot()+
+        geom_boxplot(all_metrics ,
+                     mapping = aes(x = nIknots, y = value, col = metric_type))
+
+# saveRDS(object = all_metrics,file = paste0("friedman/nIknot_eval_friedman_nonoise_n_",n_,"_sd_",sd_,".Rds"))
 
